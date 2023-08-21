@@ -1,34 +1,85 @@
-#include<stdio.h> 
+//Develop a lexical Analyzer to identify
+// identifiers, constants, operators using C program.
+#include<stdio.h>
+#include<ctype.h>
+#include<string.h>
 int main()
 {
-	char com[30]; 
-	int i,a=0; 
-	printf("\n Enter comment:");
-	gets(com); 
-	if(com[0]=='/') 
+	int i,ic=0,m,cc=0,oc=0,j;
+	char b[30],operators[30],identifiers[30],constants[30];
+	printf("enter the string : ");
+	scanf("%[^\n]s",&b);
+	for(i=0;i<strlen(b);i++)
 	{
-		if(com[1]=='/')
-			printf("\n It is a comment"); 
-		else if(com[1]=='*') 
-		{		
-			for(i=2;i<=30;i++)
+    	if(isspace(b[i]))
+		{
+    	    continue;
+    	}
+    	else if(isalpha(b[i]))
+		{
+        	identifiers[ic] =b[i];
+        	ic++;
+    	}
+    	else if(isdigit(b[i]))
+		{
+        	m=(b[i]-'0');
+        	i=i+1;
+        	while(isdigit(b[i]))
 			{
-				if(com[i]=='*'&&com[i+1]=='/')
-				{
-					printf("\n It is a comment"); 
-					a=1; 
-					break;	
-				}
-				else 
-					continue; 
-			} 
-			if(a==0)
-				printf("\n It is not a comment");
-		}
-		else
-			printf("\n It is not a comment");
+            	m=m*10 + (b[i]-'0');
+            	i++;
+        	}
+        	i=i-1;
+        	constants[cc]=m;
+        	cc++;
+    	}
+    	else
+		{
+        	if(b[i]=='*')
+			{
+            	operators[oc]='*';
+            	oc++;
+        	}
+        	else if(b[i]=='-')
+			{
+            	operators[oc]='-';
+            	oc++;
+        	}
+        	else if(b[i]=='+')
+			{
+            	operators[oc]='+';
+            	oc++;
+        	}
+         	else if(b[i]=='=')
+			{
+            	operators[oc]='=';
+            	oc++;
+        	}
+        	else if(b[i]=='(')
+			{
+            	operators[oc]='=';
+            	oc++;
+        	}
+        	else if(b[i]==')')
+			{
+            	operators[oc]='=';
+            	oc++;
+        	}
+  		}
 	}
-	else 
-		printf("\n It is not a comment");
+    printf(" identifiers : ");
+     for(j=0;j<ic;j++)
+	 {
+        printf("%c ",identifiers[j]);
+     }
+    printf("\n constants : ");
+     for(j=0;j<cc;j++)
+	 {
+        printf("%d ",constants[j]);
+     }
+    printf("\n operators : ");
+      for(j=0;j<oc;j++)
+	  {
+        printf("%c ",operators[j]);
+      }
 }
-
